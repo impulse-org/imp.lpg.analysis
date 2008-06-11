@@ -69,6 +69,7 @@ public class LPGCallGraphGenerator implements IFactGenerator {
         final boolean[] hasError= new boolean[] { false };
 
         IMessageHandler mh= new IMessageHandler() {
+            public void clearMessages() { }
             public void startMessageGroup(String groupName) { }
             public void endMessageGroup() { }
             public void handleSimpleMessage(String msg, int startOffset, int endOffset, int startCol, int endCol, int startLine, int endLine) {
