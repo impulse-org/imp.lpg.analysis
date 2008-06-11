@@ -14,10 +14,10 @@ package org.eclipse.imp.lpg.analysis.actions;
 import java.util.ResourceBundle;
 
 import org.eclipse.imp.editor.UniversalEditor;
-import org.eclipse.imp.services.ILanguageActionsContributor;
+import org.eclipse.imp.services.base.DefaultLanguageActionsContributor;
 import org.eclipse.jface.action.IAction;
 
-public class AnalysisActionContributor implements ILanguageActionsContributor {
+public class AnalysisActionContributor extends DefaultLanguageActionsContributor {
     public AnalysisActionContributor() {
 	super();
     }
