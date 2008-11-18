@@ -29,8 +29,9 @@ import org.eclipse.imp.parser.IMessageHandler;
 import org.eclipse.imp.parser.IParseController;
 import org.eclipse.imp.pdb.analysis.AnalysisException;
 import org.eclipse.imp.pdb.analysis.IFactGenerator;
-import org.eclipse.imp.pdb.facts.IRelation;
-import org.eclipse.imp.pdb.facts.IRelationWriter;
+import org.eclipse.imp.pdb.facts.ISetWriter;
+import org.eclipse.imp.pdb.facts.ITuple;
+import org.eclipse.imp.pdb.facts.IValue;
 import org.eclipse.imp.pdb.facts.db.FactBase;
 import org.eclipse.imp.pdb.facts.db.FactKey;
 import org.eclipse.imp.pdb.facts.db.IFactContext;
@@ -42,10 +43,10 @@ public class LPGCallGraphGenerator implements IFactGenerator {
 
     private final class CGVisitor extends AbstractVisitor {
         private String lhsStr;
-        private final IRelationWriter fWriter;
+        private final ISetWriter fWriter;
         private final ValueFactory fValueFactory= ValueFactory.getInstance();
 
-        public CGVisitor(IRelationWriter rw) {
+        public CGVisitor(ISetWriter rw) {
             fWriter= rw;
         }
 
@@ -67,7 +68,10 @@ public class LPGCallGraphGenerator implements IFactGenerator {
                     symWithAttrs1 sym1= (symWithAttrs1) sym;
                     String rhsStr= sym1.getSYMBOL().toString();
         
-                    fWriter.insert(fValueFactory.tuple(fValueFactory.string(LPGAnalysisTypes.LPGNonTerminalType, lhsStr), fValueFactory.string(LPGAnalysisTypes.LPGNonTerminalType, rhsStr)));
+                    IValue lhs = LPGAnalysisTypes.LPGNonTerminalType.make(fValueFactory, lhsStr);
+					IValue rhs = LPGAnalysisTypes.LPGNonTerminalType.make(fValueFactory, rhsStr);
+					ITuple tuple = fValueFactory.tuple(lhs, rhs);
+					fWriter.insert(tuple);
                 }
             }
             return true;
@@ -93,11 +97,8 @@ public class LPGCallGraphGenerator implements IFactGenerator {
         pc.initialize(cu.getPath(), cu.getProject(), mh);
 
         ASTNode root= (ASTNode) pc.parse(cu.getSource(), false, new NullProgressMonitor());
-        final IRelation cg= ValueFactory.getInstance().relation(LPGAnalysisTypes.LPGCallGraphType);
-        final IRelationWriter cgw= cg.getWriter();
-
+        final ISetWriter cgw= LPGAnalysisTypes.LPGCallGraphType.writer(ValueFactory.getInstance());
         root.accept(new CGVisitor(cgw));
-        cgw.done();
-        factBase.defineFact(new FactKey(type, context), cg);
+        factBase.defineFact(new FactKey(type, context), cgw.done());
     }
 }
