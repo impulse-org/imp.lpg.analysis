@@ -22,7 +22,7 @@ public class LPGFactGeneratorFactory implements IFactGeneratorFactory {
             return new LPGCallGraphGenerator();
         }
         throw new IllegalArgumentException("LPG Fact Generator: don't know how to produce fact " + type);
-    }
+    } 
 
     public String getName() {
         return "LPG Fact Generator Factory";
