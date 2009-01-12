@@ -80,7 +80,7 @@ public class LPGCallGraphGenerator implements IFactGenerator {
 
     public void generate(FactBase factBase, Type type, IFactContext context) throws AnalysisException {
         CompilationUnitContext cuc= (CompilationUnitContext) context;
-        Language lpgLang= LanguageRegistry.findLanguage(LPGRuntimePlugin.getLanguageID());
+        Language lpgLang= LanguageRegistry.findLanguage(LPGRuntimePlugin.getInstance().getLanguageID());
         IParseController pc= ServiceFactory.getInstance().getParseController(lpgLang);
         final boolean[] hasError= new boolean[] { false };
 
