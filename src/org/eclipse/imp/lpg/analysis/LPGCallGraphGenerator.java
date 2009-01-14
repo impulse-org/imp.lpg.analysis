@@ -36,7 +36,7 @@ import org.eclipse.imp.pdb.facts.db.FactBase;
 import org.eclipse.imp.pdb.facts.db.FactKey;
 import org.eclipse.imp.pdb.facts.db.IFactContext;
 import org.eclipse.imp.pdb.facts.db.context.CompilationUnitContext;
-import org.eclipse.imp.pdb.facts.impl.hash.ValueFactory;
+import org.eclipse.imp.pdb.facts.impl.reference.ValueFactory;
 import org.eclipse.imp.pdb.facts.type.Type;
 
 public class LPGCallGraphGenerator implements IFactGenerator {

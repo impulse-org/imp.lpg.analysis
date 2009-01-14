@@ -22,7 +22,7 @@ import org.eclipse.imp.pdb.analysis.AnalysisException;
 import org.eclipse.imp.pdb.facts.db.FactBase;
 import org.eclipse.imp.pdb.facts.db.FactKey;
 import org.eclipse.imp.pdb.facts.db.context.CompilationUnitContext;
-import org.eclipse.imp.pdb.facts.impl.hash.ValueFactory;
+import org.eclipse.imp.pdb.facts.impl.reference.ValueFactory;
 import org.eclipse.imp.pdb.facts.type.TypeFactory;
 import org.eclipse.ui.texteditor.TextEditorAction;
 
