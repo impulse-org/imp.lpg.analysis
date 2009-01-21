@@ -18,6 +18,6 @@ import org.eclipse.imp.pdb.facts.type.TypeFactory;
 public class LPGAnalysisTypes {
     public static final TypeFactory tf= TypeFactory.getInstance();
 
-    public static final Type LPGNonTerminalType= tf.namedType("org.lpg.nonTerminal", tf.stringType());
-    public static final Type LPGCallGraphType= tf.namedType("org.lpg.callGraphType", tf.relType(LPGNonTerminalType, LPGNonTerminalType));
+    public static final Type LPGNonTerminalType= tf.aliasType("org.lpg.nonTerminal", tf.stringType());
+    public static final Type LPGCallGraphType= tf.aliasType("org.lpg.callGraphType", tf.relType(LPGNonTerminalType, LPGNonTerminalType));
 }
