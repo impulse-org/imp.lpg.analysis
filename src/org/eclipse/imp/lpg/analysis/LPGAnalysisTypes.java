@@ -14,10 +14,12 @@ package org.eclipse.imp.lpg.analysis;
 
 import org.eclipse.imp.pdb.facts.type.Type;
 import org.eclipse.imp.pdb.facts.type.TypeFactory;
+import org.eclipse.imp.pdb.facts.type.TypeStore;
 
 public class LPGAnalysisTypes {
     public static final TypeFactory tf= TypeFactory.getInstance();
+    public static final TypeStore declarations = new TypeStore();
 
-    public static final Type LPGNonTerminalType= tf.aliasType("org.lpg.nonTerminal", tf.stringType());
-    public static final Type LPGCallGraphType= tf.aliasType("org.lpg.callGraphType", tf.relType(LPGNonTerminalType, LPGNonTerminalType));
+    public static final Type LPGNonTerminalType= tf.aliasType(declarations, "org.lpg.nonTerminal", tf.stringType());
+    public static final Type LPGCallGraphType= tf.aliasType(declarations, "org.lpg.callGraphType", tf.relType(LPGNonTerminalType, LPGNonTerminalType));
 }
