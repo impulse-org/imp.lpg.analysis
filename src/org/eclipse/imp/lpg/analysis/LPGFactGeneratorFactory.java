@@ -14,7 +14,7 @@ package org.eclipse.imp.lpg.analysis;
 import org.eclipse.imp.pdb.analysis.IFactGenerator;
 import org.eclipse.imp.pdb.analysis.IFactGeneratorFactory;
 import org.eclipse.imp.pdb.facts.type.Type;
-import org.eclipse.imp.pdb.facts.type.TypeFactory;
+import org.eclipse.imp.pdb.facts.type.TypeStore;
 
 public class LPGFactGeneratorFactory implements IFactGeneratorFactory {
     public IFactGenerator create(Type type) {
@@ -28,8 +28,8 @@ public class LPGFactGeneratorFactory implements IFactGeneratorFactory {
         return "LPG Fact Generator Factory";
     }
 
-    public void declareTypes(TypeFactory factory) {
+    public TypeStore declareTypes() {
         // Force static initializers on LPGAnalysisTypes to run
-        Type dummy= LPGAnalysisTypes.LPGCallGraphType;
+        return LPGAnalysisTypes.declarations;
     }
 }
