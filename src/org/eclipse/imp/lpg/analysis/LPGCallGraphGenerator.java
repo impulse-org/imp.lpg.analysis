@@ -96,7 +96,7 @@ public class LPGCallGraphGenerator implements IFactGenerator {
 
         pc.initialize(cu.getPath(), cu.getProject(), mh);
 
-        ASTNode root= (ASTNode) pc.parse(cu.getSource(), false, new NullProgressMonitor());
+        ASTNode root= (ASTNode) pc.parse(cu.getSource(), new NullProgressMonitor());
         final ISetWriter cgw= LPGAnalysisTypes.LPGCallGraphType.writer(ValueFactory.getInstance());
         root.accept(new CGVisitor(cgw));
         factBase.defineFact(new FactKey(type, context), cgw.done());
