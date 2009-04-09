@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: LPG Analyses
 Bundle-SymbolicName: org.eclipse.imp.lpg.analysis;singleton:=true
-Bundle-Version: 0.1.9
+Bundle-Version: 0.1.10
 Bundle-Activator: org.eclipse.imp.lpg.analysis.LPGAnalysisPlugin
 Bundle-Vendor: rfuhrer@watson.ibm.com
 Bundle-Localization: plugin
@@ -14,7 +14,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.imp.pdb.values,
  org.eclipse.imp.runtime,
  org.eclipse.ui.editors,
- org.eclipse.imp.lpg.runtime,
+ org.eclipse.imp.lpg.ide,
  lpg.runtime,
  org.eclipse.core.resources
 Eclipse-LazyStart: true
