@@ -2,10 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: LPG Analyses
 Bundle-SymbolicName: org.eclipse.imp.lpg.analysis;singleton:=true
-Bundle-Version: 0.1.11
+Bundle-Version: 0.1.12
 Bundle-Activator: org.eclipse.imp.lpg.analysis.LPGAnalysisPlugin
 Bundle-Vendor: rfuhrer@watson.ibm.com
-Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.workbench.texteditor,
  org.eclipse.jface.text,
