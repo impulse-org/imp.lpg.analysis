@@ -7,7 +7,6 @@
 *
 * Contributors:
 *    Robert Fuhrer (rfuhrer@watson.ibm.com) - initial API and implementation
-
 *******************************************************************************/
 
 package org.eclipse.imp.lpg.analysis;
@@ -22,8 +21,8 @@ import org.eclipse.imp.lpg.parser.LPGParser.AbstractVisitor;
 import org.eclipse.imp.lpg.parser.LPGParser.IsymWithAttrs;
 import org.eclipse.imp.lpg.parser.LPGParser.nonTerm;
 import org.eclipse.imp.lpg.parser.LPGParser.rule;
-import org.eclipse.imp.lpg.parser.LPGParser.symWithAttrs1;
 import org.eclipse.imp.lpg.parser.LPGParser.symWithAttrsList;
+import org.eclipse.imp.lpg.parser.LPGParser.symWithAttrs__SYMBOL_optAttrList;
 import org.eclipse.imp.model.ICompilationUnit;
 import org.eclipse.imp.parser.IMessageHandler;
 import org.eclipse.imp.parser.IParseController;
@@ -64,8 +63,8 @@ public class LPGCallGraphGenerator implements IFactGenerator {
             symWithAttrsList rhsList= n.getsymWithAttrsList();
             for(int i=0; i < rhsList.size(); i++) {
                 IsymWithAttrs sym= rhsList.getsymWithAttrsAt(i);
-                if (sym instanceof symWithAttrs1) {
-                    symWithAttrs1 sym1= (symWithAttrs1) sym;
+                if (sym instanceof symWithAttrs__SYMBOL_optAttrList) {
+                	symWithAttrs__SYMBOL_optAttrList sym1= (symWithAttrs__SYMBOL_optAttrList) sym;
                     String rhsStr= sym1.getSYMBOL().toString();
         
                     IValue lhs = LPGAnalysisTypes.LPGNonTerminalType.make(fValueFactory, lhsStr);
