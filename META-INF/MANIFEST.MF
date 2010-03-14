@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: LPG Analyses
 Bundle-SymbolicName: org.eclipse.imp.lpg.analysis;singleton:=true
-Bundle-Version: 0.1.14.qualifier
+Bundle-Version: 0.1.15.qualifier
 Bundle-Activator: org.eclipse.imp.lpg.analysis.LPGAnalysisPlugin
 Bundle-ActivationPolicy: lazy
 Eclipse-LazyStart: true
@@ -11,11 +11,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.workbench.texteditor,
  org.eclipse.jface.text,
  org.eclipse.ui,
- org.eclipse.imp.pdb,
- org.eclipse.imp.pdb.values,
- org.eclipse.imp.runtime,
+ org.eclipse.imp.pdb;bundle-version="0.1.23",
+ org.eclipse.imp.pdb.values;bundle-version="0.1.26",
+ org.eclipse.imp.runtime;bundle-version="0.1.104",
  org.eclipse.ui.editors,
- org.eclipse.imp.lpg.ide,
- lpg.runtime.java,
+ org.eclipse.imp.lpg.ide;bundle-version="0.1.89",
+ lpg.runtime.java;bundle-version="2.0.17",
  org.eclipse.core.resources
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
