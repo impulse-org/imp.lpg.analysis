@@ -24,7 +24,6 @@ import org.eclipse.imp.lpg.parser.LPGParser.rule;
 import org.eclipse.imp.lpg.parser.LPGParser.symWithAttrsList;
 import org.eclipse.imp.lpg.parser.LPGParser.symWithAttrs__SYMBOL_optAttrList;
 import org.eclipse.imp.model.ICompilationUnit;
-import org.eclipse.imp.parser.IMessageHandler;
 import org.eclipse.imp.parser.IParseController;
 import org.eclipse.imp.pdb.analysis.AnalysisException;
 import org.eclipse.imp.pdb.analysis.IFactGenerator;
@@ -37,6 +36,7 @@ import org.eclipse.imp.pdb.facts.db.IFactContext;
 import org.eclipse.imp.pdb.facts.db.context.CompilationUnitContext;
 import org.eclipse.imp.pdb.facts.impl.reference.ValueFactory;
 import org.eclipse.imp.pdb.facts.type.Type;
+import org.eclipse.imp.utils.ErrorIndicatorMessageHandler;
 
 public class LPGCallGraphGenerator implements IFactGenerator {
 
@@ -70,6 +70,7 @@ public class LPGCallGraphGenerator implements IFactGenerator {
                     IValue lhs = LPGAnalysisTypes.LPGNonTerminalType.make(fValueFactory, lhsStr);
 					IValue rhs = LPGAnalysisTypes.LPGNonTerminalType.make(fValueFactory, rhsStr);
 					ITuple tuple = fValueFactory.tuple(lhs, rhs);
+
 					fWriter.insert(tuple);
                 }
             }
@@ -81,22 +82,18 @@ public class LPGCallGraphGenerator implements IFactGenerator {
         CompilationUnitContext cuc= (CompilationUnitContext) context;
         Language lpgLang= LanguageRegistry.findLanguage(LPGRuntimePlugin.getInstance().getLanguageID());
         IParseController pc= ServiceFactory.getInstance().getParseController(lpgLang);
-        final boolean[] hasError= new boolean[] { false };
-
-        IMessageHandler mh= new IMessageHandler() {
-            public void clearMessages() { }
-            public void startMessageGroup(String groupName) { }
-            public void endMessageGroup() { }
-            public void handleSimpleMessage(String msg, int startOffset, int endOffset, int startCol, int endCol, int startLine, int endLine) {
-                hasError[0]= true;
-            }
-        };
+        ErrorIndicatorMessageHandler mh= new ErrorIndicatorMessageHandler();
         ICompilationUnit cu= cuc.getCompilationUnit();
 
         pc.initialize(cu.getPath(), cu.getProject(), mh);
 
         ASTNode root= (ASTNode) pc.parse(cu.getSource(), new NullProgressMonitor());
+
+        if (mh.hadErrors()) {
+            // do something here?
+        }
         final ISetWriter cgw= LPGAnalysisTypes.LPGCallGraphType.writer(ValueFactory.getInstance());
+
         root.accept(new CGVisitor(cgw));
         factBase.defineFact(new FactKey(type, context), cgw.done());
     }
