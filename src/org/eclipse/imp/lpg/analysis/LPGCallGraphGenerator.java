@@ -11,6 +11,9 @@
 
 package org.eclipse.imp.lpg.analysis;
 
+import java.util.Map;
+
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.imp.language.Language;
 import org.eclipse.imp.language.LanguageRegistry;
@@ -30,12 +33,11 @@ import org.eclipse.imp.pdb.analysis.IFactGenerator;
 import org.eclipse.imp.pdb.facts.ISetWriter;
 import org.eclipse.imp.pdb.facts.ITuple;
 import org.eclipse.imp.pdb.facts.IValue;
-import org.eclipse.imp.pdb.facts.db.FactBase;
-import org.eclipse.imp.pdb.facts.db.FactKey;
 import org.eclipse.imp.pdb.facts.db.IFactContext;
 import org.eclipse.imp.pdb.facts.db.context.CompilationUnitContext;
 import org.eclipse.imp.pdb.facts.impl.reference.ValueFactory;
 import org.eclipse.imp.pdb.facts.type.Type;
+import org.eclipse.imp.pdb.indexing.IndexedDocumentDescriptor;
 import org.eclipse.imp.utils.ErrorIndicatorMessageHandler;
 
 public class LPGCallGraphGenerator implements IFactGenerator {
@@ -78,7 +80,7 @@ public class LPGCallGraphGenerator implements IFactGenerator {
         }
     }
 
-    public void generate(FactBase factBase, Type type, IFactContext context) throws AnalysisException {
+    public IValue generate(Type type, IFactContext context, Map<IResource, IndexedDocumentDescriptor> workingCopies) throws AnalysisException {
         CompilationUnitContext cuc= (CompilationUnitContext) context;
         Language lpgLang= LanguageRegistry.findLanguage(LPGRuntimePlugin.getInstance().getLanguageID());
         IParseController pc= ServiceFactory.getInstance().getParseController(lpgLang);
@@ -95,6 +97,6 @@ public class LPGCallGraphGenerator implements IFactGenerator {
         final ISetWriter cgw= LPGAnalysisTypes.LPGCallGraphType.writer(ValueFactory.getInstance());
 
         root.accept(new CGVisitor(cgw));
-        factBase.defineFact(new FactKey(type, context), cgw.done());
+        return cgw.done();
     }
 }
